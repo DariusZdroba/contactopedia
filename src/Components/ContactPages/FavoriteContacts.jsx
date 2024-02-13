@@ -3,9 +3,9 @@ import React from "react";
 const FavoriteContacts = () => {
   return (
     <div>
-      <button className="btn btn-secondary form-control">
-        Favorite Contact
-      </button>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
     </div>
   );
 };
