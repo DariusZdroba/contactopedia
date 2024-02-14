@@ -37,7 +37,17 @@ export default class ContactIndex extends Component {
     };
   }
 
-  handleAddContact = () => {
+  handleAddContact = (newContact) => {
+    const newFinalContact = {
+      ...newContact,
+      id: this.state.contactList.length + 1,
+      isFavorite: false,
+    };
+    this.setState((prevState) => {
+      return {
+        contactList: prevState.contactList.concat([newFinalContact]),
+      };
+    });
     alert("hello");
   };
 
