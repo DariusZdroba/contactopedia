@@ -1,9 +1,18 @@
 import React from "react";
 
-const RemoveAllContact = () => {
+const RemoveAllContact = (props) => {
+  const handleRemoveAll = () => {
+    props.handleRemoveAllContact();
+  };
   return (
     <div>
-      <button className="btn btn-danger form-control"> Remove All</button>
+      <button
+        className="btn btn-danger form-control"
+        onClick={() => handleRemoveAll()}
+      >
+        {" "}
+        Remove All
+      </button>
     </div>
   );
 };

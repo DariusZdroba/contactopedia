@@ -1,6 +1,9 @@
 import React from "react";
 
 const Contact = (props) => {
+  const handleFavorite = (e) => {
+    e.preventDefault();
+  };
   return (
     <div
       className="row p-md-2 mb-2"
@@ -26,13 +29,17 @@ const Contact = (props) => {
           className={`btn btn-sm mx-5 ${
             props.contact.isFavorite ? "btn-warning" : "btn-outline-warning"
           }`}
+          onClick={() => props.handleToggleFavorite(props.contact)}
         >
           <i className="bi bi-star" style={{ fontSize: "1rem" }}></i>
         </button>
         <button className="btn btn-primary btn-sm m-1">
           <i className="bi bi-pencil-square" style={{ fontSize: "1rem" }}></i>
         </button>
-        <button className="btn btn-danger btn-sm m-1">
+        <button
+          className="btn btn-danger btn-sm m-1"
+          onClick={() => props.handleDeleteContact(props.contact.id)}
+        >
           <i className="bi bi-trash-fill" style={{ fontSize: "1rem" }}></i>
         </button>
       </div>
