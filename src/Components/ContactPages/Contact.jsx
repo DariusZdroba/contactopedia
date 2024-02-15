@@ -1,9 +1,7 @@
 import React from "react";
 
 const Contact = (props) => {
-  const handleFavorite = (e) => {
-    e.preventDefault();
-  };
+
   return (
     <div
       className="row p-md-2 mb-2"

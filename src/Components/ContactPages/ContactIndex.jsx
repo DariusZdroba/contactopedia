@@ -94,9 +94,10 @@ export default class ContactIndex extends Component {
     });
   };
   handleRemoveAllContact = () => {
-    this.setState((prevState) => {
+    this.setState((state) => {
       return {
-        contactList: prevState.contactList.filter((c) => c.id != -1),
+        ...state,
+        contactList: [],
       };
     });
   };
