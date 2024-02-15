@@ -34,6 +34,8 @@ export default class ContactIndex extends Component {
           isFavorite: false,
         },
       ],
+      selectedContact: undefined,
+      isUpdating: false,
     };
   }
   handleDeleteContact = (contactId) => {
@@ -55,6 +57,32 @@ export default class ContactIndex extends Component {
     });
   };
 
+  handleUpdateContact = (updatedContact) => {
+    if (updatedContact.name === "") {
+      return { status: "failure", msg: "Please enter a valid name" };
+    } else if (updatedContact.phone === "") {
+      return { status: "failure", msg: "Please enter a valid phone number" };
+    }
+
+    this.setState((prevState) => {
+      return {
+        contactList: prevState.contactList.map((obj) => {
+          if (obj.id === updatedContact.id) {
+            return {
+              ...obj,
+              name: updatedContact.name,
+              email: updatedContact.email,
+              phone: updatedContact.phone,
+            };
+          }
+          return obj;
+        }),
+        isUpdating: false,
+        selectedContact: undefined,
+      };
+    });
+    return { status: "success", msg: "Contact updated successfully" };
+  };
   handleAddContact = (newContact) => {
     if (newContact.name === "") {
       return { status: "failure", msg: "Please enter a valid name" };
@@ -101,6 +129,23 @@ export default class ContactIndex extends Component {
       };
     });
   };
+  handleUpdateClick = (contact) => {
+    console.log(contact);
+    this.setState((prevState) => {
+      return {
+        selectedContact: contact,
+        isUpdating: true,
+      };
+    });
+  };
+  handleCancelUpdateContact = (contact) => {
+    this.setState((prevState) => {
+      return {
+        selectedContact: undefined,
+        isUpdating: false,
+      };
+    });
+  };
 
   render() {
     return (
@@ -120,12 +165,19 @@ export default class ContactIndex extends Component {
             </div>
             <div className="row py-2">
               <div className="col-8 offset-2 row">
-                <AddContact handleAddContact={this.handleAddContact} />
+                <AddContact
+                  handleCancelUpdateContact={this.handleCancelUpdateContact}
+                  handleAddContact={this.handleAddContact}
+                  isUpdating={this.state.isUpdating}
+                  selectedContact={this.state.selectedContact}
+                  handleUpdateContact={this.handleUpdateContact}
+                />
               </div>
             </div>
             <div className="row py-2">
               <div className="col-8 offset-2 row">
                 <FavoriteContacts
+                  handleUpdateClick={this.handleUpdateClick}
                   handleDeleteContact={this.handleDeleteContact}
                   handleToggleFavorite={this.handleToggleFavorite}
                   contacts={this.state.contactList.filter(
@@ -137,6 +189,7 @@ export default class ContactIndex extends Component {
             <div className="row py-2">
               <div className="col-8 offset-2 row">
                 <GeneralContacts
+                  handleUpdateClick={this.handleUpdateClick}
                   handleDeleteContact={this.handleDeleteContact}
                   handleToggleFavorite={this.handleToggleFavorite}
                   contacts={this.state.contactList.filter(
